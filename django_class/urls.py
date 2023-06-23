@@ -15,11 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.http.response import HttpResponse
-
-def HelloWorld(request):
-    text = "Some thing Some thing"
-    return HttpResponse(f'<h1>{text}</h1>')
+from products.views import HelloWorld
 
 
 urlpatterns = [
