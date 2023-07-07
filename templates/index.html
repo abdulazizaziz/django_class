@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1 style="background-color: red;">Hello, World</h1>
-</body>
-</html>
+{% extends "base.html" %} {% block body %}
+<h1>{{student.name}}</h1>
+
+{% comment %} Comment {% endcomment %} {% if color == 'red' %}
+<h1 style="background-color: red">Hello, {{title}}</h1>
+{% elif color == 'green' %}
+<h1 style="background-color: green">Hello, {{title}}</h1>
+{% else %}
+<h1 style="background-color: orange">Hello, {{title}}</h1>
+{% endif %}
+
+<ul>
+  {% for item in fruits %}
+  <li>{{item}}</li>
+  {% endfor %}
+</ul>
+
+{% endblock body %}
