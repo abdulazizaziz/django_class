@@ -1,23 +1,26 @@
-{% extends "base.html" %} {% block body %}
-<div class="bg-dark col-8 mx-auto my-5">
-  <h3 class="text-light p-2">Students</h3>
-  <table class="table table-dark">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Age</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for student in students %}
-      <tr>
-        <td>{{student.id}}</td>
-        <td>{{student.name}}</td>
-        <td>{{student.age}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-{% endblock body %}
+{% extends "base.html" %}
+
+
+{% block main %}
+    <h1>We Have {{count}} Students</h1>
+
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th >#</th>
+          <th >Name</th>
+          <th >Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in products %}
+          <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.price}}</td>
+          </tr>
+          
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock main %}

@@ -1,18 +1,6 @@
-{% extends "base.html" %} {% block body %}
-<h1>{{student.name}}</h1>
+{% extends "base.html" %}
 
-{% comment %} Comment {% endcomment %} {% if color == 'red' %}
-<h1 style="background-color: red">Hello, {{title}}</h1>
-{% elif color == 'green' %}
-<h1 style="background-color: green">Hello, {{title}}</h1>
-{% else %}
-<h1 style="background-color: orange">Hello, {{title}}</h1>
-{% endif %}
 
-<ul>
-  {% for item in fruits %}
-  <li>{{item}}</li>
-  {% endfor %}
-</ul>
-
-{% endblock body %}
+{% block main %}
+    <h1>Hello, World</h1>
+{% endblock main %}
