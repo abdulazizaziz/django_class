@@ -6,10 +6,16 @@ def home(request):
     return render(request, 'index.html')
 
 
-def students(request):
-    products = Product.objects.all()
+def products(request):
+    # products = Product.objects.all()
+    products = Product.objects.filter(is_available=True)
     context = {
         "count": len(products),
         'products': products
     }
-    return render(request, 'students.html', context)
+
+    # Other Quieries
+    # iphone = Product.objects.get(id=1)
+    # print(iphone.name)
+
+    return render(request, 'products.html', context)
