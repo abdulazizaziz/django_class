@@ -22,6 +22,7 @@ def products(request):
     # print(iphone.name)
 
     return render(request, 'products.html', context)
+
     
 def create_product(request):
     # print(request.method)
@@ -47,3 +48,34 @@ def delete_product(request):
     except ObjectDoesNotExist:
         pass
     return HttpResponseRedirect('/products')
+
+
+def edit_product(request, id):
+    try:
+        item = Product.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect('/products')
+    return render(request, 'editproduct.html', {"product": item})
+
+def update_product(request, id):
+    try:
+        item = Product.objects.get(id=id)
+        # print(request.POST)
+        name = request.POST['name']
+        price = request.POST['price']
+        detail = request.POST['detail']
+        is_available = request.POST.get('is_available')
+        
+        item.name = name
+        item.price = price
+        item.detail = detail
+        if is_available:
+            item.is_available = True
+        else:
+            item.is_available = False
+        item.save()
+
+
+    except ObjectDoesNotExist:
+        pass
+    return HttpResponseRedirect('/products') 

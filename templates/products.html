@@ -33,8 +33,14 @@
       <td>{{item.name}}</td>
       <td>{{item.price}}</td>
       <td>
-        <a class="btn btn-danger" href="/deleteproducts/?id={{item.id}}">
+        <!-- <a class="btn btn-danger" href="/deleteproducts/?id={{item.id}}">
           <i class="bi bi-trash3"></i>
+        </a> -->
+        <a class="btn btn-outline-danger btn-sm" onclick="delete_product({{item.id}})">
+          <i class="bi bi-trash3"></i>
+        </a>
+        <a href="/products/{{item.id}}/" class="btn btn-sm btn-outline-warning">
+          <i class="bi bi-pencil-square"></i>
         </a>
       </td>
     </tr>
@@ -86,4 +92,26 @@
   </div>
 </div>
 
+
 {% endblock main %}
+
+
+
+{% block script %}
+<script>
+  function delete_product(id) {
+    Swal.fire({
+      icon: 'question',
+      text: 'Do you want to delete?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#dc3545'
+    }).then(result => {
+      if (result.isConfirmed) {
+        location.href = '/deleteproducts/?id=' + id
+      }
+    })
+  }
+</script>
+{% endblock script %}
