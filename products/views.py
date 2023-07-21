@@ -4,6 +4,8 @@ from .models import Product
 
 from django.core.exceptions import ObjectDoesNotExist
 
+def main(request):
+    return HttpResponseRedirect('/home/')
 
 def home(request):
     return render(request, 'index.html')
