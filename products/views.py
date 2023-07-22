@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
-from .models import Product
+from .models import Product, Category
 
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -81,3 +81,28 @@ def update_product(request, id):
     except ObjectDoesNotExist:
         pass
     return HttpResponseRedirect('/products') 
+
+# ----------------------------------------------------------------------------
+# ---------------------------- Categories Section ----------------------------
+
+def categories(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        Category.objects.create(name=name)
+        
+    categories = Category.objects.all()
+    return render(request, 'category.html', {"categories": categories, "count": len(categories)})
+
+def category_edit(request, id):
+    if request.method == 'POST':
+        name = request.POST['name']
+        try:
+            category = Category.objects.get(id=id)
+            category.name = name
+            category.save()
+        except:
+            pass
+    return HttpResponseRedirect('/categories') 
+
+# ---------------------------- Categories Section ----------------------------
+# ----------------------------------------------------------------------------

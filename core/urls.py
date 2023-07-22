@@ -13,5 +13,8 @@ urlpatterns = [
     path('deleteproducts/', delete_product),
     path('products/<int:id>/', edit_product),
     path('updateproducts/<int:id>/', update_product),
+
+    path('categories/', categories),
+    path('categories/<int:id>/', category_edit),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
