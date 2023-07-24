@@ -12,11 +12,18 @@ def home(request):
 
 
 def products(request):
-    products = Product.objects.all()
+    # products = Product.objects.all()[0:2]  # Slicing
+    # first = Product.objects.all()[0] # Getting First record
+    # products = Product.objects.all().first() # Getting First record
     # products = Product.objects.filter(is_available=True)
+    # products = Product.objects.order_by('id')
+    # products = Product.objects.values('id', 'name', 'price')
+    products = Product.objects.all()
+    categories = Category.objects.all()
     context = {
         "count": len(products),
-        'products': products
+        'products': products,
+        'categories': categories,
     }
 
     # Other Quieries
@@ -34,12 +41,14 @@ def create_product(request):
     name = request.POST['name']
     price = request.POST['price']
     detail = request.POST['detail']
+    category_id = request.POST['category']
+    category = Category.objects.get(id=category_id)
     if 'is_available' in request.POST:
         is_available = True
     else:
         is_available = False
     
-    Product.objects.create(name=name, price=price, detail=detail, is_available=is_available)
+    Product.objects.create(name=name, price=price, detail=detail, is_available=is_available, category=category)
 
     return HttpResponseRedirect('/products')
 
@@ -94,14 +103,30 @@ def categories(request):
     return render(request, 'category.html', {"categories": categories, "count": len(categories)})
 
 def category_edit(request, id):
-    if request.method == 'POST':
-        name = request.POST['name']
-        try:
-            category = Category.objects.get(id=id)
+    try:
+        category = Category.objects.get(id=id)
+        if request.method == 'POST':
+            name = request.POST['name']
             category.name = name
             category.save()
-        except:
-            pass
+        elif request.method == 'GET':
+            category.delete()
+    except:
+        pass
+    # if request.method == 'POST':
+    #     name = request.POST['name']
+    #     try:
+    #         category = Category.objects.get(id=id)
+    #         category.name = name
+    #         category.save()
+    #     except:
+    #         pass
+    # elif request.method == 'GET':
+    #     try:
+    #         category = Category.objects.get(id=id)
+    #         category.delete()
+    #     except:
+    #         pass
     return HttpResponseRedirect('/categories') 
 
 # ---------------------------- Categories Section ----------------------------
