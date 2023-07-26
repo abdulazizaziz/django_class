@@ -10,17 +10,22 @@
   {% endif %}
 
   <div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
       Create Product
     </button>
   </div>
-
 </div>
 
 <table class="table table-dark">
   <thead>
     <tr>
       <th>#</th>
+      <th>Image</th>
       <th>Name</th>
       <th>Price</th>
       <th>Category</th>
@@ -31,6 +36,11 @@
     {% for item in products %}
     <tr>
       <td>{{item.id}}</td>
+      <td>
+        <!-- serve media file  -->
+
+        <img src="/media/{{item.image}}" width="80px" />
+      </td>
       <td>{{item.name}}</td>
       <td>{{item.price}}</td>
       <td>{{item.category.name}}</td>
@@ -38,7 +48,10 @@
         <!-- <a class="btn btn-danger" href="/deleteproducts/?id={{item.id}}">
           <i class="bi bi-trash3"></i>
         </a> -->
-        <a class="btn btn-outline-danger btn-sm" onclick="delete_product({{item.id}})">
+        <a
+          class="btn btn-outline-danger btn-sm"
+          onclick="delete_product({{item.id}})"
+        >
           <i class="bi bi-trash3"></i>
         </a>
         <a href="/products/{{item.id}}/" class="btn btn-sm btn-outline-warning">
@@ -57,34 +70,54 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Create Product</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <form method="POST" action="/createproducts/">
           <div class="form-group">
             {% csrf_token %}
             <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control sm">
+            <input type="text" name="name" id="name" class="form-control sm" />
           </div>
           <div class="form-group">
             <label for="price">Price</label>
-            <input type="number" name="price" id="price" class="form-control sm">
+            <input
+              type="number"
+              name="price"
+              id="price"
+              class="form-control sm"
+            />
           </div>
           <div class="form-group">
             <label for="category">Category</label>
             <select name="category" id="category" class="form-select sm">
               {% for item in categories %}
               <option value="{{item.id}}">{{item.name}}</option>
-                
+
               {% endfor %}
             </select>
           </div>
           <div class="form-group">
             <label for="detail">Detail</label>
-            <textarea name="detail" id="detail" rows="6" class="form-control sm"></textarea>
+            <textarea
+              name="detail"
+              id="detail"
+              rows="6"
+              class="form-control sm"
+            ></textarea>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="is_available" id="is_available">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="is_available"
+              id="is_available"
+            />
             <label class="form-check-label" for="is_available">
               Is Available
             </label>
@@ -103,26 +136,21 @@
   </div>
 </div>
 
-
-{% endblock main %}
-
-
-
-{% block script %}
+{% endblock main %} {% block script %}
 <script>
   function delete_product(id) {
     Swal.fire({
-      icon: 'question',
-      text: 'Do you want to delete?',
+      icon: "question",
+      text: "Do you want to delete?",
       showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No',
-      confirmButtonColor: '#dc3545'
-    }).then(result => {
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      confirmButtonColor: "#dc3545",
+    }).then((result) => {
       if (result.isConfirmed) {
-        location.href = '/deleteproducts/?id=' + id
+        location.href = "/deleteproducts/?id=" + id;
       }
-    })
+    });
   }
 </script>
 {% endblock script %}

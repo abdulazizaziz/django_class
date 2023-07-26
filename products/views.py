@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
+from django.db.models import Q
 from .models import Product, Category
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -18,7 +19,13 @@ def products(request):
     # products = Product.objects.filter(is_available=True)
     # products = Product.objects.order_by('id')
     # products = Product.objects.values('id', 'name', 'price')
-    products = Product.objects.all()
+    # products = Product.objects.filter(category__name='mobile')
+    # products = Product.objects.filter(Q(category=1) | Q(price=1000), is_available=True)
+    # give me the products which are in category 1 and 3
+    # products = Product.objects.filter()
+    # products = Product.objects.filter(name__in=['Iphone 6', 'Latitute', 'Nothing'])
+    # products = Product.objects.filter(category__in=[1, 3])
+    products = Product.objects.raw('SELECT * FROM `products_product`')
     categories = Category.objects.all()
     context = {
         "count": len(products),
