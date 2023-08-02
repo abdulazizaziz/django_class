@@ -2,12 +2,15 @@ from django.contrib import admin
 from django.urls import path, include
 # from products.views import home, products, create_product, delete_product, edit_product, update_product, main
 from products.views import *
+from accounts.views import *
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', login),
+    path('logout/', logout),
     path('', main),
     path('home/', home),
     path('products/', products),
