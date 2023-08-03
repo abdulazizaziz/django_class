@@ -10,6 +10,10 @@ def login(request):
         user = authenticate(username=email, password=password)
         if user is not None:
             base_login(request, user)
+            next = request.GET.get('next')
+            if next is not None:
+                return HttpResponseRedirect(next)
+            return HttpResponseRedirect('/home/')
     
     return render(request, 'login.html')
 

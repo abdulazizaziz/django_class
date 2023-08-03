@@ -2,16 +2,20 @@ from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 from django.db.models import Q
 from .models import Product, Category
+from django.contrib.auth.decorators import login_required
 
 from django.core.exceptions import ObjectDoesNotExist
 
 def main(request):
     return HttpResponseRedirect('/home/')
 
+@login_required
 def home(request):
     return render(request, 'index.html')
+    
 
 
+@login_required
 def products(request):
     # products = Product.objects.all()[0:2]  # Slicing
     # first = Product.objects.all()[0] # Getting First record
